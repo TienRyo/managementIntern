@@ -1,0 +1,74 @@
+.main-content {
+    padding: 15px 15px 0;
+}
+
+.main-content i.ti-plus {
+    color: white;
+}
+
+#sideBar {
+    -webkit-transition: left 300ms;
+    -moz-transition: left 300ms;
+    -o-transition: left 300ms;
+    transition: left 300ms;
+    left: 0;
+    height: 100%;
+    width: 240px;
+    top: 44px;
+    background-color: #2c3136;
+}
+
+#content {
+    -webkit-transition: padding-left 300ms;
+    -moz-transition: padding-left 300ms;
+    -o-transition: padding-left 300ms;
+    transition: padding-left 300ms;
+    padding: 0 0 0 240px;
+}
+
+#content .wrapper-content {
+    box-shadow: none;
+}
+
+.menu-inactive #sideBar {
+    left: -195px
+}
+
+.menu-inactive #content {
+    padding-left: 50px;
+}
+
+.app .ui.top.fixed.menu {
+    height: 50px;
+}
+
+.app .header.item {
+    min-width: 19rem;
+}
+
+.app .ui.segment.wrapper-content-right {
+    border: none;
+    box-shadow: none;
+    margin-top: 50px;
+    padding-left: 20rem;
+}
+
+.app .left.fixed.menu {
+    min-width: 19rem;
+    margin-top: 50px;
+}
+
+.app .fixed.menu > a.item {
+    height: 50px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.message-error {
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 15px;
+}
