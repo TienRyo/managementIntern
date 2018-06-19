@@ -1,0 +1,8 @@
+.dropdown_menu_user .menu.transition.visible {
+    left: 0 !important;
+    right: auto !important;
+}
+
+.dropdown_menu_user .menu.transition.visible > div.item > a {
+    color: rgba(0, 0, 0, 0.87);
+}
