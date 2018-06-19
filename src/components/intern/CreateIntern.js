@@ -1,7 +1,8 @@
 import React                                                          from 'react';
-import { Input, Form, Button, FormGroup, Label, Container, Row, Col } from "reactstrap";
-import {Breadcrumb}                                                   from "antd";
+import { Input, Form, FormGroup, Label, Container, Row, Col } from "reactstrap";
 import { internService }                                              from "../../services";
+import App                                                            from "../../App";
+import { Header, Divider, Button}                                                    from "semantic-ui-react";
 export default class CreateIntern extends React.Component {
     state = {
         code : '',
@@ -43,11 +44,12 @@ export default class CreateIntern extends React.Component {
     }
     render() {
         return (
+            <App>
             <div>
-                <Breadcrumb style={{ margin: '16px 0' }}>
-                    <Breadcrumb.Item><b>DETAIL COMPANY</b></Breadcrumb.Item>
-                </Breadcrumb>
                 <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
+                    <Header>Create Intern
+                    </Header>
+                    <Divider/>
                     <div style={{border : 2, width : '70%', margin : 'auto'}}>
                         <Container>
                             <Form>
@@ -112,6 +114,7 @@ export default class CreateIntern extends React.Component {
                     </div>
                 </div>
             </div>
+            </App>
         )
     }
 }

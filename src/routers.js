@@ -9,9 +9,20 @@ import CourseList     from "./components/Guest/CourseList";
 import CompanyList    from "./components/Guest/CompanyList";
 import CompanyEditor  from "./components/company/CompanyEditor";
 import CreateLecturer from "./components/lecturer/CreateLecturer";
+import CreateIntern   from "./components/intern/CreateIntern";
 
 export default [
     {
+        path       : '/management/areas',
+        component  : Areas,
+        name       : 'Area management',
+        permissions: ['lecturer']
+    }, {
+        path       : '/management/intern',
+        component  : CreateIntern,
+        name       : 'Create intern',
+        permissions: ['admin', 'lecturer']
+    },{
         path       : '/create/lecturer',
         component  : CreateLecturer,
         name       : 'Create Lecturer',
@@ -21,7 +32,7 @@ export default [
         path       : '/edit/company/:id',
         component  : CompanyEditor,
         name       : 'Company Edit',
-        permissions: ['admin', 'le  cturer']
+        permissions: ['admin', 'lecturer']
     },
         {
         path       : '/course-list',

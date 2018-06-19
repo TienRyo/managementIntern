@@ -1,7 +1,9 @@
 import React                                                                  from 'react';
 import { Breadcrumb, Button, Icon, Select }                                   from "antd";
 import { areaService, courseService, internshipService, registrationService } from "../../../services";
-import { Table }                                                       from "reactstrap";
+import { Table }                                                              from "reactstrap";
+import App                                                                    from "../../../App";
+import { Form, Message }                                                      from "semantic-ui-react";
 const Option = Select.Option;
 
 class Areas extends React.Component {
@@ -62,11 +64,13 @@ class Areas extends React.Component {
     }
     render() {
         return (
-            <div>
-                <Breadcrumb style={{ margin: '16px 0' }}>
-                    <Breadcrumb.Item>AREAS COMPANY</Breadcrumb.Item>
-                </Breadcrumb>
+            <App>
                 <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+                    <Message
+                        attached
+                        header={'AREAS COMPANY'}
+                    />
+                    <Form className={'attached fluid segment'}>
                     <div style={{width : '50%', margin : 'auto'}}>
                         <label>Course</label><br/>
                         <Select style={{ width: '100%' }} onChange={(value) => this.onChangeCourse(value)}>
@@ -153,8 +157,9 @@ class Areas extends React.Component {
                         }
                         </tbody>
                     </Table>
+                    </Form>
                 </div>
-            </div>
+            </App>
         )
     }
 }

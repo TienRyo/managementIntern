@@ -53,6 +53,10 @@ const SLIDER_BAR_MENU_LECTURER = [
         path : '/registration-list',
         label: 'Registration List',
         // icon : 'home'
+    },{
+        path : '/area-list',
+        label: 'Area List',
+        // icon : 'home'
     }
 ];
 
