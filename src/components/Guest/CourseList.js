@@ -76,19 +76,19 @@ class CourseList extends React.Component {
                             )}
                             </tbody>
                         </Table>
+                        <Collapse isOpen={this.state.collapse}>
+                            <Card>
+                                <Layout>
+                                    <CardHeader><b>LIST INTERNSHIP</b></CardHeader>
+                                <CardBody>
+                                    <InternshipList/>
+                                </CardBody>
+                                </Layout>
+                            </Card>
+                        </Collapse>
                     </Container>
                     </Form>
                 </div>
-                <Collapse isOpen={this.state.collapse}>
-                    <Card>
-                        <Layout>
-                            <CardHeader><b>LIST INTERNSHIP</b></CardHeader>
-                        <CardBody>
-                            <InternshipList/>
-                        </CardBody>
-                        </Layout>
-                    </Card>
-                </Collapse>
             </div>
             </App>
         )

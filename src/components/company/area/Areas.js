@@ -1,9 +1,9 @@
-import React                                                                  from 'react';
-import { Breadcrumb, Button, Icon, Select }                                   from "antd";
-import { areaService, courseService, internshipService, registrationService } from "../../../services";
-import { Table }                                                              from "reactstrap";
-import App                                                                    from "../../../App";
-import { Form, Message }                                                      from "semantic-ui-react";
+import React                                                                                  from 'react';
+import { Button, Icon, Select }                                                               from "antd";
+import { areaService, courseService, internshipService, profileService, registrationService } from "../../../services";
+import { Table }                                                                              from "reactstrap";
+import App                                                                                    from "../../../App";
+import { Form, Message }                                                                      from "semantic-ui-react";
 const Option = Select.Option;
 
 class Areas extends React.Component {
@@ -62,7 +62,9 @@ class Areas extends React.Component {
             choices : this.state.choices
         })
     }
+
     render() {
+        const admin     = !(profileService.getProfile().role === 'lecturer');
         return (
             <App>
                 <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
@@ -95,7 +97,7 @@ class Areas extends React.Component {
                         <br/>
                     </div>
                     <div style={{textAlign : 'right'}}>
-                        <Button type={'primary'}>SAVE</Button>
+                        <Button type={'primary'} disabled={admin}>SAVE</Button>
                     </div>
                     <label><b>List Area</b></label>
                     <Table>

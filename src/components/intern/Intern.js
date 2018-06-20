@@ -27,7 +27,8 @@ const mapStateToProps = function (state) {
 
 class Intern extends React.Component {
     state = {
-        interns : []
+        interns : [],
+        listImport : []
     };
 
     componentWillMount() {
@@ -45,9 +46,6 @@ class Intern extends React.Component {
             })
         })
     }
-    importFile() {
-
-    }
     render() {
         const props = {
             name: 'file',
@@ -57,15 +55,20 @@ class Intern extends React.Component {
             },
             onChange(info) {
                 if (info.file.status !== 'uploading') {
-                    this.setState({
-                        listImport : info.fileList
-                    })
+                    console.log(info.file, info.fileList);
                 }
                 if (info.file.status === 'done') {
-                    message.success(`${info.file.name} file uploaded successfully`);
+                    internService.importFile({file : info.file.name}).then(()=>{
+                        message.success(`${info.file.name} file uploaded successfully`);
+                        window.location.replace('/intern-list');
+                    });
                 } else if (info.file.status === 'error') {
-                    message.error(`${info.file.name} file upload failed.`);
+                    internService.importFile({file : info.file.name}).then(()=>{
+                        message.success(`${info.file.name} file uploaded successfully`);
+                        window.location.replace('/intern-list');
+                    });
                 }
+
             },
         };
         return (
@@ -89,11 +92,6 @@ class Intern extends React.Component {
                                     <Icon type="upload" /> Click to Upload
                                 </Button>
                             </Upload>
-                            <br/>
-                            <Button onClick={this.importFile.bind(this)}>Save</Button>
-                            <br/>
-
-                            <br/>
                             <br/>
                             <Table striped>
                                 <thead>

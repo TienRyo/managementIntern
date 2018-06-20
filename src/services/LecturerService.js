@@ -20,7 +20,7 @@ class LecturerService {
         return this.axios.delete(`${this.config.domain}/lecturer/${id}`);
     }
     importFile(data) {
-        return this.axios.post(`${this.config.domain}/import/lecturer`, data);
+        return this.axios.post(`${this.config.domain}/import/lecturers`, data);
     }
 }
 

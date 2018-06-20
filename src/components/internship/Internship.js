@@ -1,10 +1,11 @@
-import {Button, Select, Tabs} from 'antd';
-import React from "react";
-import {connect}            from  'react-redux';
-import {deleteInternship, editInternship, loadInternship} from "./action";
-import FormAddInternship from "./FormAddInternship";
+import {Button, Select, Tabs}                                     from 'antd';
+import React                                                      from "react";
+import {connect}                                                  from  'react-redux';
+import {deleteInternship, editInternship, loadInternship}         from "./action";
+import FormAddInternship                                          from "./FormAddInternship";
 import {Input, Label, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
-import {loadLecturer} from "../lecturer/action";
+import {loadLecturer}                                             from "../lecturer/action";
+import { profileService }                                         from "../../services";
 
 const TabPane = Tabs.TabPane;
 const Option = Select.Option;
@@ -89,9 +90,10 @@ class InternshipList extends React.Component {
         this.props.deleteInternship(this.state.id, this.state.course_id, this.state.key_edit)
     }
     render() {
+        const admin     = !(profileService.getProfile().role === 'admin');
         return (
             <div style={{ padding: 24, background: '#fff'}}>
-                <Button style={{marginBottom : 10}} onClick={this.toggle}>ADD</Button>
+                <Button style={{marginBottom : 10}} onClick={this.toggle} disabled={admin}>ADD</Button>
                 <FormAddInternship collapse={this.state.collapse} course_id={this.props.course_id}/>
                 <div className="card-container">
                     <Tabs tabPosition={'top'} type="card">
@@ -110,7 +112,7 @@ class InternshipList extends React.Component {
                                     <li> Lecturer Phone : {internship.lecturer.phone}</li>
                                     <li> Lecturer Email : {internship.lecturer.email}</li>
                                 </ul>
-                                <Button onClick={() => this.openModal(internship, index)}>EDIT</Button>
+                                <Button onClick={() => this.openModal(internship, index)} disabled={admin}>EDIT</Button>
                                 <Modal isOpen={this.state.modalIsOpen} onClosed={this.closeModal.bind(this)}>
                                     <ModalHeader>EDIT INTERNSHIP</ModalHeader>
                                     <ModalBody>
@@ -131,7 +133,7 @@ class InternshipList extends React.Component {
                                         <Button type={'primary'} onClick={this.handleClick.bind(this)}>SAVE</Button>
                                     </ModalFooter>
                                 </Modal>
-                                <Button onClick={this.deleteInternship.bind(this)}>DELETE</Button>
+                                <Button onClick={this.deleteInternship.bind(this)} disabled={admin}>DELETE</Button>
                             </TabPane>
                         )}
                     </Tabs>

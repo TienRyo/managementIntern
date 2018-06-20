@@ -12,6 +12,9 @@ import InternService       from "./InternService";
 import AreaService         from "./AreaService";
 import RegistrationService from "./RegistrationService";
 import CompanyService      from "./CompanyService";
+import CouncilService      from "./CouncilService";
+import RateService         from "./RateService";
+import MailSercive         from "./MailSercive";
 
 axios.interceptors.request.use(axiosConfig => {
     //TODO add token here
@@ -42,4 +45,6 @@ export let internService = new InternService(axios, config);
 export let CompanyEditorService = new CompanyService(axios, config);
 export let areaService = new AreaService(axios, config);
 export let registrationService = new RegistrationService(axios, config);
-
+export let councilService = new CouncilService(axios, config);
+export let rateService = new RateService(axios, config);
+export let mailSercice = new MailSercive(axios, config);

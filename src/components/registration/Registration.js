@@ -1,9 +1,9 @@
-import React                                                     from 'react';
-import {  Button, Select }                            from "antd";
-import { courseService, internshipService, registrationService } from "../../services";
-import { Input, Table }                                          from "reactstrap";
-import App                                                       from "../../App";
-import { Form, Message }                                         from "semantic-ui-react";
+import React                                                                     from 'react';
+import {  Button, Select }                                                       from "antd";
+import { courseService, internshipService, profileService, registrationService } from "../../services";
+import { Input, Table }                                                          from "reactstrap";
+import App                                                                       from "../../App";
+import { Form, Message }                                                         from "semantic-ui-react";
 const Option = Select.Option;
 
 class Registration extends React.Component {
@@ -78,6 +78,7 @@ class Registration extends React.Component {
         )
     }
     render() {
+        const admin     = !(profileService.getProfile().role === 'lecturer');
         return (
             <App>
                 <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
@@ -137,7 +138,7 @@ class Registration extends React.Component {
                                 <th>Gender</th>
                                 <th>Date of Birth</th>
                                 <th>Address</th>
-                                <th style={{textAlign: 'center'}}>Confirmed</th>
+                                <th style={{textAlign: 'center'}}>CONFIRMED</th>
                                 <th style={{textAlign: 'center'}}>DELETE</th>
                             </tr>
                             </thead>
@@ -163,10 +164,10 @@ class Registration extends React.Component {
                             <tr>
                                 <td colSpan={6}/>
                                 <td style={{textAlign: 'center'}}>
-                                    <Button onClick={this.sendConfirmed.bind(this)}>Confirmed</Button>
+                                    <Button onClick={this.sendConfirmed.bind(this)} disabled={admin}>Confirmed</Button>
                                 </td>
                                 <td style={{textAlign: 'center'}}>
-                                    <Button onClick={this.deleteConfirmed.bind(this)}>DELETE</Button>
+                                    <Button onClick={this.deleteConfirmed.bind(this)} disabled={admin}>DELETE</Button>
                                 </td>
                             </tr>
                             </tbody>

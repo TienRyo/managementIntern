@@ -69,7 +69,6 @@ class CompanyEditor extends React.Component {
         e.preventDefault();
         areaService.postArea(this.state.nameArea,this.state.addressArea, this.state.id).then(res => {
             let area = res.data;
-            console.log(res.data);
             this.setState({
                 areas : [...this.state.areas, {name : area.name, address : area.address, id : area.id}],
                 nameArea : '',

@@ -1,12 +1,13 @@
-import React                from 'react';
-import Modal                from 'react-modal';
-import ListCourse           from "./ListCourse";
-import FormAddCourse        from "./FormAddCourse";
-import {Button} from "antd"
-import {connect}            from  'react-redux';
-import {loadCourse}         from "./actions";
-import App                  from "../../App";
-import { Form, Message }    from 'semantic-ui-react';
+import React              from 'react';
+import Modal              from 'react-modal';
+import ListCourse         from "./ListCourse";
+import FormAddCourse      from "./FormAddCourse";
+import {Button}           from "antd"
+import {connect}          from  'react-redux';
+import {loadCourse}       from "./actions";
+import App                from "../../App";
+import { Form, Message }  from 'semantic-ui-react';
+import { profileService } from "../../services";
 const mapDispatchToProps = function (dispatch) {
     return {
         loadCourse : function () {
@@ -52,6 +53,7 @@ class Course extends React.Component {
     }
 
     render() {
+        const admin     = !(profileService.getProfile().role === 'admin');
         return (
             <App>
                 <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
@@ -62,7 +64,7 @@ class Course extends React.Component {
                     <Form className={'attached fluid segment'}>
                         <ListCourse courses={this.props.courses} />
                         <div style={{marginTop : 10, marginLeft : 16}}>
-                            <Button onClick={this.toggle} style={{marginBottom: '1rem'}}>ADD</Button>
+                            <Button onClick={this.toggle} style={{marginBottom: '1rem'}} disabled={admin}>ADD</Button>
                             <FormAddCourse collapse={this.state.collapse}/>
                         </div>
                     </Form>

@@ -25,6 +25,10 @@ const SLIDER_BAR_MENU_ADMIN = [
         path : '/registration-list',
         label: 'Registration List',
         // icon : 'home'
+    },{
+        path : '/rates',
+        label: 'Rates',
+        // icon : 'home'
     }
 ];
 
@@ -57,6 +61,11 @@ const SLIDER_BAR_MENU_LECTURER = [
         path : '/area-list',
         label: 'Area List',
         // icon : 'home'
+    },
+    {
+        path : '/rates',
+        label: 'Rates',
+        // icon : 'home'
     }
 ];
 
@@ -68,6 +77,14 @@ const SLIDER_BAR_MENU_INTERN = [
     },{
         path : '/companies',
         label: 'Companies',
+        // icon : 'home'
+    },{
+        path : '/lecturer-list',
+        label: 'Lecturers',
+        // icon : 'home'
+    },{
+        path : '/rates',
+        label: 'Rates',
         // icon : 'home'
     }
 ];

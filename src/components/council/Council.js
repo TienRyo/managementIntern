@@ -1,9 +1,9 @@
-import React                                                 from 'react';
-import { Button, Icon, Select }                  from "antd";
-import { Table }                                             from "reactstrap";
-import { courseService, internshipService, lecturerService } from "../../services";
-import App                                                   from "../../App";
-import { Form, Message }                                     from "semantic-ui-react";
+import React                                                                                 from 'react';
+import { Button, Icon, Select }                                                              from "antd";
+import { Table }                                                                             from "reactstrap";
+import { councilService, courseService, internshipService, lecturerService, profileService } from "../../services";
+import App                                                                                   from "../../App";
+import { Form, Message }                                                                     from "semantic-ui-react";
 const Option = Select.Option;
 
 class Council extends React.Component {
@@ -56,7 +56,15 @@ class Council extends React.Component {
     onChangeInternship() {
         
     }
+    createCouncil = ()=> {
+        councilService.postCouncil({council : this.state.councils}).then(() => {
+            alert("success")
+        }).catch(()=>{
+            alert("Create Fail")
+        })
+    };
     render() {
+        const admin     = !(profileService.getProfile().role === 'admin');
         return (
             <App>
                     <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
@@ -77,7 +85,7 @@ class Council extends React.Component {
                                 <Option value={internship.id} key={index}>{internship.company.name}</Option>
                             )}
                         </Select>
-                        <Button type="primary" style={{marginLeft : '10px'}}>SAVE</Button>
+                        <Button type="primary" style={{marginLeft : '10px'}} onClick={this.createCouncil} disabled={admin}>SAVE</Button>
                         <br/>
                         <label style={{marginTop : 30}}><b>List Council</b></label>
                         <Table>

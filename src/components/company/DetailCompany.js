@@ -1,8 +1,8 @@
 import React                                                  from 'react';
 import { areaService, CompanyEditorService }                  from "../../services";
-import { Breadcrumb }                                         from "antd";
 import { Col, Container, Form, FormGroup, Label, Row, Table } from "reactstrap";
 import App                                                    from "../../App";
+import { Segment }                                   from "semantic-ui-react";
 
 class DetailCompany extends React.Component {
     state = {
@@ -27,12 +27,11 @@ class DetailCompany extends React.Component {
     render() {
         return (
             <App>
-            <div>
-                <Breadcrumb style={{ margin: '16px 0' }}>
-                    <Breadcrumb.Item><b>DETAIL COMPANY</b></Breadcrumb.Item>
-                </Breadcrumb>
                 <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
-                    <div style={{border : 2, width : '70%', margin : 'auto'}}>
+                    <Segment.Group>
+                        <Segment><b>DETAIL COMPANY</b></Segment>
+                        <Segment>
+                        <div style={{border : 2, width : '70%', margin : 'auto'}}>
                         <Container>
                             <Form>
                                 <Row>
@@ -57,7 +56,7 @@ class DetailCompany extends React.Component {
                                     </Col>
                                 </Row>
                             </Form>
-                            <h5>AREAS COMPANY</h5>
+                            <h6>AREAS COMPANY</h6>
                             <Table striped>
                                 <thead>
                                 <tr>
@@ -78,7 +77,8 @@ class DetailCompany extends React.Component {
                             </Table>
                         </Container>
                     </div>
-                </div>
+                        </Segment>
+                    </Segment.Group>
             </div>
             </App>
         )

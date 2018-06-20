@@ -1,8 +1,8 @@
-import { Tabs ,Button}         from 'antd';
-import React                   from "react";
-import {connect}               from  'react-redux';
-import {loadInternship}        from "../internship/action";
-import { registrationService } from "../../services";
+import { Tabs ,Button}                                      from 'antd';
+import React                                                from "react";
+import {connect}                                            from  'react-redux';
+import {loadInternship}                                     from "../internship/action";
+import { mailSercice, profileService, registrationService } from "../../services";
 
 const TabPane = Tabs.TabPane;
 
@@ -20,16 +20,26 @@ const mapStateToProps = function (state) {
     }
 };
 class InternshipList extends React.Component {
+    state = {
+        isOpen : [],
+    };
     componentDidMount() {
         this.props.loadInternship();
     }
-    registration(id) {
-        let code = localStorage.getItem('code');
-        registrationService.registration(id, {code: code}).then(res => {
-            alert('registration success')
+    registration(internship) {
+        let intern = profileService.getProfile();
+        registrationService.registration(internship.id, {code: intern.code}).then(()=> {
+            mailSercice.sendMailLecturer({
+                email : intern.email,
+                intern : intern,
+                internship : internship
+            }).then(() => {
+                alert('registration success');
+            })
         }).catch(err => {
             alert(err)
         })
+
     }
     render() {
         return (
@@ -50,7 +60,11 @@ class InternshipList extends React.Component {
                                 <li> Lecturer Email : {internship.lecturer.email}</li>
                                 <li> Deadline : {internship.deadline}</li>
                             </ul>
-                            <Button type="primary" onClick={()=>this.registration(internship.id)}>Registration</Button>
+                            {this.state.isOpen ?
+                            <Button type="primary" onClick={()=>this.registration(internship)} disabled>Registration</Button>
+                            :
+                            <Button type="primary" onClick={()=>this.registration(internship)}  >Registration</Button>
+                            }
                         </TabPane>
                     )}
                 </Tabs>

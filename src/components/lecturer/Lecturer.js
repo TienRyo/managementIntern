@@ -1,12 +1,13 @@
-import React                      from 'react';
-import {connect}                  from 'react-redux';
-import {loadLecturer}             from "./action";
-import {Container, Table}         from 'reactstrap';
-import {Button}      from "antd";
-import { Link }                   from "react-router-dom";
-import { Upload, message,  Icon } from 'antd';
-import { lecturerService }        from "../../services";
-import App                        from "../../App";
+import React                               from 'react';
+import {connect}                           from 'react-redux';
+import {loadLecturer}                      from "./action";
+import {Container, Table}                  from 'reactstrap';
+import {Button}                            from "antd";
+import { Link }                            from "react-router-dom";
+import { Upload, message,  Icon }          from 'antd';
+import { lecturerService, profileService } from "../../services";
+import App                                 from "../../App";
+import { Form, Message }                   from "semantic-ui-react";
 
 
 
@@ -44,9 +45,6 @@ class Lecturer extends React.Component {
         })
     }
 
-    importFile() {
-
-    }
     render() {
         const props = {
             name: 'file',
@@ -59,31 +57,38 @@ class Lecturer extends React.Component {
                     console.log(info.file, info.fileList);
                 }
                 if (info.file.status === 'done') {
-                    message.success(`${info.file.name} file uploaded successfully`);
+                    lecturerService.importFile({file : info.file.name}).then(() => {
+                        message.success(`${info.file.name} file uploaded successfully`);
+                        window.location.replace('/lecturer-list');
+                    });
                 } else if (info.file.status === 'error') {
-                    message.error(`${info.file.name} file upload failed.`);
+                    lecturerService.importFile({file : info.file.name}).then(() => {
+                        message.success(`${info.file.name} file uploaded successfully`);
+                        window.location.replace('/lecturer-list');
+                    });
                 }
             },
         };
-
+        const admin     = !(profileService.getProfile().role === 'admin');
         return (
             <App>
-            <Container>
                 <div>
                     <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+                        <Message
+                            attached
+                            header={'List Lecturer'}
+                        />
+                        <Form className={'attached fluid segment'}>
                         <Container>
                             <div style={{textAlign : 'right'}}>
-                            <Link to={'/create/lecturer'}><Button>ADD</Button></Link><br/>
+                            <Link to={'/create/lecturer'}><Button type={'primary'} disabled={admin}>ADD</Button></Link><br/>
                             </div>
                             <label>Import file : </label>
                             <Upload {...props}>
-                                <Button>
+                                <Button disabled={admin}>
                                     <Icon type="upload" /> Click to Upload
                                 </Button>
                             </Upload>
-                            <br/>
-                            <Button onClick={this.importFile.bind(this)}>Save</Button>
-                            <br/>
                             <br/>
                             <Table striped>
                                 <thead>
@@ -95,7 +100,7 @@ class Lecturer extends React.Component {
                                     <th> PHONE</th>
                                     <th> EMAIL</th>
                                     <th> ADDRESS</th>
-                                    <th> ACTION</th>
+                                    <th style={{textAlign: 'center'}}> ACTION</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -108,15 +113,15 @@ class Lecturer extends React.Component {
                                         <td>{lecturer.phone}</td>
                                         <td>{lecturer.email}</td>
                                         <td>{lecturer.address}</td>
-                                        <td><Button data-id={lecturer.code} data-key={index} onClick={this.deleteLecturer.bind(this)}>DELETE</Button></td>
+                                        <td style={{textAlign: 'center'}}><Button disabled={admin} data-id={lecturer.code} data-key={index} onClick={this.deleteLecturer.bind(this)}>DELETE</Button></td>
                                     </tr>
                                 )}
                                 </tbody>
                             </Table>
                         </Container>
+                        </Form>
                     </div>
                 </div>
-            </Container>
             </App>
         )
     }

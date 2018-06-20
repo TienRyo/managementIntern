@@ -24,11 +24,6 @@ class LoginComponent extends Component {
         })
     }
 
-    handleChange = (e, {name, value}) => {
-        this.setState({
-            [name]: value
-        });
-    };
 
     handleLogin = e => {
         e.preventDefault();
@@ -48,7 +43,7 @@ class LoginComponent extends Component {
         const credential = this.props.credential || {};
         switch (credential.role) {
             case config.role.INTERN :
-                this.props.history.push('/course-list');
+                this.props.history.push('/courses');
                 return '';
             case config.role.ADMIN:
                 this.props.history.push('/course-list');

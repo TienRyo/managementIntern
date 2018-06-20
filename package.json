@@ -26,8 +26,8 @@
     "validator": "^10.3.0"
   },
   "scripts": {
-    "start": "npm i && react-scripts start",
-    "build": "npm i && react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }

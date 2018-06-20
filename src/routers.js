@@ -10,9 +10,21 @@ import CompanyList    from "./components/Guest/CompanyList";
 import CompanyEditor  from "./components/company/CompanyEditor";
 import CreateLecturer from "./components/lecturer/CreateLecturer";
 import CreateIntern   from "./components/intern/CreateIntern";
+import DetailCompany  from "./components/company/DetailCompany";
+import Rate           from "./components/rate/Rate";
 
 export default [
     {
+        path       : '/company/:id',
+        component  : DetailCompany,
+        name       : 'Company Detail',
+        permissions: ['intern']
+    },{
+        path       : '/rates',
+        component  : Rate,
+        name       : 'List Rate',
+        permissions: ['*']
+    },{
         path       : '/management/areas',
         component  : Areas,
         name       : 'Area management',
@@ -48,7 +60,7 @@ export default [
         path       : '/lecturer-list',
         component  : Lecturer,
         name       : 'Lecturer List',
-        permissions: ['admin', 'lecturer']
+        permissions: ['admin', 'lecturer', 'intern']
     },{
         path       : '/intern-list',
         component  : Intern,

@@ -1,13 +1,14 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import {connect}                                                             from 'react-redux'
 import {Container, Input, Label, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
-import {Button, Layout, Select} from "antd"
-import {ChangeStatusCourse, deleteCourse, editCourse} from "./actions";
-import {Link} from "react-router-dom";
-import {listInternshipById} from "../internship/action";
-import { Collapse, CardBody, Card, CardHeader } from 'reactstrap';
-import InternshipList from "../internship/Internship";
-import {Table} from 'semantic-ui-react';
+import {Button, Layout, Select}                                              from "antd"
+import {ChangeStatusCourse, deleteCourse, editCourse}                        from "./actions";
+import {Link}                                                                from "react-router-dom";
+import {listInternshipById}                                                  from "../internship/action";
+import { Collapse, CardBody, Card, CardHeader }                              from 'reactstrap';
+import InternshipList                                                        from "../internship/Internship";
+import {Table}                                                               from 'semantic-ui-react';
+import { profileService }                                                    from "../../services";
 const mapDispatchToProps = function (dispatch) {
     return {
         editCourse : function (id, name, startDate, endDate, status, key_edit) {
@@ -103,6 +104,7 @@ class ListCourse extends React.Component {
     }
 
     render() {
+        const admin     = !(profileService.getProfile().role === 'admin');
         return (
             <Container>
                 <Table celled selectable>
@@ -122,9 +124,9 @@ class ListCourse extends React.Component {
                             <Table.Cell><Link onClick={this.renderInternship.bind(this)} data-course-id={course.id} to ={"/course/".concat(course.id).concat('/internships')}>{course.name}</Link></Table.Cell>
                             <Table.Cell>{course.startDate}</Table.Cell>
                             <Table.Cell>{course.endDate}</Table.Cell>
-                            <Table.Cell style={{textAlign:'center'}}><Button data-course-id={course.id} index={index} onClick={this.ChangeStatusCourse.bind(this)}
+                            <Table.Cell style={{textAlign:'center'}}><Button disabled={admin} data-course-id={course.id} index={index} onClick={this.ChangeStatusCourse.bind(this)}
                                                 style={{marginBottom: '1rem'}} type={course.status==='CLOSE' ? 'danger' : 'primary'}>{course.status}</Button></Table.Cell>
-                            <Table.Cell style={{textAlign:'center'}}><Button data-course-id={course.id}  onClick={() => this.openModal(course, index)}
+                            <Table.Cell style={{textAlign:'center'}}><Button data-course-id={course.id} disabled={admin}  onClick={() => this.openModal(course, index)}
                                                 style={{marginBottom: '1rem'}}>Edit</Button></Table.Cell>
                             <Modal isOpen={this.state.modalIsOpen} onClosed={this.closeModal}>
                                 <ModalHeader>EDIT COURSE</ModalHeader>

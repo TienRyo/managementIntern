@@ -1,13 +1,14 @@
 import React                                       from 'react';
 import {connect}                                   from 'react-redux';
 import {deleteCompany, detailCompany, loadCompany} from "./action";
-import {Container, Table}                          from 'reactstrap';
-import {Button}                                    from 'antd'
-import FormAddCompany                              from "./FormAddCompany";
-import {Link}                                      from "react-router-dom";
-import {loadArea}                                  from "./area/action";
-import {CompanyEditorService}                      from "../../services";
-import App                                         from "../../App";
+import {Container, Table}     from 'reactstrap';
+import {Button}               from 'antd'
+import FormAddCompany         from "./FormAddCompany";
+import {Link}                 from "react-router-dom";
+import {loadArea}             from "./area/action";
+import {CompanyEditorService} from "../../services";
+import App                    from "../../App";
+import {profileService}         from "../../services";
 
 
 
@@ -75,6 +76,7 @@ class Company extends React.Component {
         })
     }
      render() {
+         const admin     = !(profileService.getProfile().role === 'admin');
         return (
             <App>
             <Container>
@@ -102,6 +104,7 @@ class Company extends React.Component {
                                 <th>{company.address}</th>
                                 <th>
                                     <Button
+                                        disabled={admin}
                                         className={"btn-delete"}
                                         data-company-id={company.id}
                                         index={index}
@@ -114,7 +117,7 @@ class Company extends React.Component {
                         </tbody>
                     </Table>
                 <div>
-                    <Button onClick={this.toggle} style={{marginBottom: '1rem'}}>ADD</Button>
+                    <Button onClick={this.toggle} style={{marginBottom: '1rem'}} disabled={admin}>ADD</Button>
                     <FormAddCompany onChangeCompany={(value) => this.onChangeCompany(value)} collapse={this.state.collapse}/>
                 </div>
                 </div>
